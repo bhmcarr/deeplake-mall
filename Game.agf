@@ -1980,14 +1980,14 @@
         <Characters>
           <Character>
             <ID>0</ID>
-            <ScriptName>Brotag</ScriptName>
-            <RealName>Brotag</RealName>
+            <ScriptName>cTrenton</ScriptName>
+            <RealName>Trenton</RealName>
             <NormalView>17</NormalView>
             <SpeechView>0</SpeechView>
             <IdleView>17</IdleView>
             <ThinkingView>0</ThinkingView>
             <BlinkingView>17</BlinkingView>
-            <StartingRoom>5</StartingRoom>
+            <StartingRoom>1</StartingRoom>
             <StartX>176</StartX>
             <StartY>143</StartY>
             <UniformMovementSpeed>True</UniformMovementSpeed>
@@ -2239,7 +2239,7 @@
                 <ShowTextParser>False</ShowTextParser>
                 <Script><![CDATA[// Dialog script file
 @S  // Dialog startup entry point
-  if(Brotag.GetProperty("knowsAboutDonors") == true){
+  if(cTrenton.GetProperty("knowsAboutDonors") == true){
     dialog[0].SetOptionState(7, eOptionOn);
   }
 Bill: Yeah, whaddya want?
@@ -2253,10 +2253,10 @@ return
 // What's new, Bill?
 @2
 Bill: I read on the Doogle this morning that a buncha folks' pets have gone missin'.
-Brotag: Missing?
+cTrenton: Missing?
 Bill: You deaf or something? Yeah, missin'.
 Bill: People nowadays don't take care of nothin' that's important anymore.
-Brotag: I wonder what's going on.. Did it say anything about any leads?
+cTrenton: I wonder what's going on.. Did it say anything about any leads?
 Bill: I dunno, I only read the first bit. 
 Bill: Dogs and cats ain't allowed here, so it doesn't mean nothin' for us anyway.
 option-on 3;
@@ -2283,10 +2283,10 @@ stop
 // What's a Doogle?
 @6
 Bill: It's that thing-a-ma-whatsit on the internet..
-Brotag: ..thing-a-who now?
+cTrenton: ..thing-a-who now?
 Bill: *sigh*
 Bill: That thing on the internet that let's ya look stuff up..
-Brotag: Uh huh..
+cTrenton: Uh huh..
 run-script 1;
 return
 
@@ -2346,13 +2346,13 @@ return
                 <ShowTextParser>False</ShowTextParser>
                 <Script><![CDATA[// Dialog script file
 @S  // Dialog startup entry point
-Brotag: Bill, are you ever going to fix this screen?
+cTrenton: Bill, are you ever going to fix this screen?
 Bill: Huh?
 Bill: Oh, that.. wasn't it always like that?
-Brotag: No.
+cTrenton: No.
   Wait(20);
 Bill: Uh, It's probably--
-Brotag: What's that camera even pointed at anyways?
+cTrenton: What's that camera even pointed at anyways?
   Wait(20);
 Bill: ...probably nothing important.
 stop
@@ -2370,29 +2370,29 @@ stop
                 <ShowTextParser>False</ShowTextParser>
                 <Script><![CDATA[// Dialog script file
 @S  // Dialog startup entry point
-Brotag: *clack clack clack*
-Brotag: Hm...
+cTrenton: *clack clack clack*
+cTrenton: Hm...
 return
 @1
-Brotag: NEWS_DIALOG_GOES_HERE
+cTrenton: NEWS_DIALOG_GOES_HERE
 return
 @2
-Brotag: *clack clack clack*
-Brotag: *scroll scroll*
-  object[2].Visible = false;
-  object[3].Visible = true;
-Brotag: ...heh
-Brotag: *scroll scroll*
-Bill: Hey! What are you getting paid for here?
-Brotag: Alright, that's enough of that.
-Brotag: *click*
+cTrenton: *clack clack clack*
+cTrenton: *scroll scroll*
+  object[1].Visible = false;
   object[2].Visible = true;
-  object[3].Visible = false;
+cTrenton: ...heh
+cTrenton: *scroll scroll*
+Bill: Hey! What are you getting paid for here?
+cTrenton: Alright, that's enough of that.
+cTrenton: *click*
+  object[1].Visible = true;
+  object[2].Visible = false;
 return
 
 @3
-Brotag: *click*
-  object[2].Visible = false;
+cTrenton: *click*
+  object[1].Visible = false;
 stop
 ]]></Script>
                 <DialogOptions>
@@ -2427,11 +2427,11 @@ stop
                 <ShowTextParser>False</ShowTextParser>
                 <Script><![CDATA[// Dialog script file
 @S  // Dialog startup entry point
-  if(Brotag.GetProperty("knowsAboutDonors") == true){
+  if(cTrenton.GetProperty("knowsAboutDonors") == true){
     dialog[3].SetOptionState(1, eOptionOn);
   }
   //TODO: Fix Chet's dialog tree
-Brotag: Hi.
+cTrenton: Hi.
 Chet: Hey.
 return
 
@@ -2445,12 +2445,12 @@ return
 option-off 2;
 Chet: Man, you mall-cops think EVERYODY is suspicious.
 Chet: .. but you're sort of right I guess.
-Brotag: So? What's her deal?
+cTrenton: So? What's her deal?
 Chet: Wait wait wait, hold on.
 Chet: I'm not telling you anything, I could be killed!
-Brotag: Killed?!
+cTrenton: Killed?!
 Chet: Well, maybe not killed..
-Brotag: This is serious! She let something slip about "donors."
+cTrenton: This is serious! She let something slip about "donors."
 Chet: * sigh *
 return
 
@@ -2497,7 +2497,7 @@ return
                 <ShowTextParser>False</ShowTextParser>
                 <Script><![CDATA[// Dialog script file
 @S  // Dialog startup entry point
-  if(Brotag.GetProperty("knowsAboutDonors") == true){
+  if(cTrenton.GetProperty("knowsAboutDonors") == true){
     dialog[0].SetOptionState(1, eOptionOn);
   }
 
@@ -2600,9 +2600,9 @@ Yvonne: *COUGH*
 Yvonne: There haven't been as many clients... our suppliers...
 Yvonne: Yes. Recession.. you know how things are.
 Yvonne: * twitch *
-Brotag: Uhh..
+cTrenton: Uhh..
 option-on 4;
-  Brotag.SetProperty("knowsAboutDonors" , 1);
+  cTrenton.SetProperty("knowsAboutDonors" , 1);
 return
 
 @4
