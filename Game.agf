@@ -180,6 +180,17 @@
         <AppliesToRooms>True</AppliesToRooms>
         <Type>Boolean</Type>
       </CustomPropertySchemaItem>
+      <CustomPropertySchemaItem>
+        <Name>wearingUglyShirt</Name>
+        <Description xml:space="preserve">wearing ugly shirt</Description>
+        <DefaultValue>0</DefaultValue>
+        <AppliesToCharacters>True</AppliesToCharacters>
+        <AppliesToHotspots>True</AppliesToHotspots>
+        <AppliesToInvItems>True</AppliesToInvItems>
+        <AppliesToObjects>True</AppliesToObjects>
+        <AppliesToRooms>True</AppliesToRooms>
+        <Type>Boolean</Type>
+      </CustomPropertySchemaItem>
     </PropertyDefinitions>
     <GlobalMessages>
       <Message ID="500" />
@@ -701,7 +712,7 @@
           </UnloadedRoom>
           <UnloadedRoom>
             <Number>3</Number>
-            <Description IsNull="True" />
+            <Description />
           </UnloadedRoom>
           <UnloadedRoom>
             <Number>4</Number>
@@ -729,6 +740,18 @@
           </UnloadedRoom>
           <UnloadedRoom>
             <Number>99</Number>
+            <Description IsNull="True" />
+          </UnloadedRoom>
+          <UnloadedRoom>
+            <Number>10</Number>
+            <Description IsNull="True" />
+          </UnloadedRoom>
+          <UnloadedRoom>
+            <Number>11</Number>
+            <Description IsNull="True" />
+          </UnloadedRoom>
+          <UnloadedRoom>
+            <Number>12</Number>
             <Description IsNull="True" />
           </UnloadedRoom>
         </UnloadedRooms>
@@ -1811,11 +1834,65 @@
             <ID>3</ID>
             <HotspotX>0</HotspotX>
             <HotspotY>0</HotspotY>
-            <PlayerStartsWithItem>True</PlayerStartsWithItem>
+            <PlayerStartsWithItem>False</PlayerStartsWithItem>
             <CursorImage>0</CursorImage>
             <Image>60</Image>
             <Description xml:space="preserve">Decaf Coffee</Description>
             <Name>iDecafCoffee</Name>
+            <Properties />
+            <Interactions>
+              <Event Index="0" />
+              <Event Index="1" />
+              <Event Index="2" />
+              <Event Index="3" />
+              <Event Index="4" />
+            </Interactions>
+          </InventoryItem>
+          <InventoryItem>
+            <ID>4</ID>
+            <HotspotX>1</HotspotX>
+            <HotspotY>2</HotspotY>
+            <PlayerStartsWithItem>False</PlayerStartsWithItem>
+            <CursorImage>0</CursorImage>
+            <Image>71</Image>
+            <Description xml:space="preserve">Vape Magazine</Description>
+            <Name>iVapeMag</Name>
+            <Properties />
+            <Interactions>
+              <Event Index="0" />
+              <Event Index="1" />
+              <Event Index="2" />
+              <Event Index="3" />
+              <Event Index="4" />
+            </Interactions>
+          </InventoryItem>
+          <InventoryItem>
+            <ID>5</ID>
+            <HotspotX>0</HotspotX>
+            <HotspotY>0</HotspotY>
+            <PlayerStartsWithItem>False</PlayerStartsWithItem>
+            <CursorImage>0</CursorImage>
+            <Image>72</Image>
+            <Description xml:space="preserve">Vintage Doll</Description>
+            <Name>iDoll</Name>
+            <Properties />
+            <Interactions>
+              <Event Index="0" />
+              <Event Index="1" />
+              <Event Index="2" />
+              <Event Index="3" />
+              <Event Index="4" />
+            </Interactions>
+          </InventoryItem>
+          <InventoryItem>
+            <ID>6</ID>
+            <HotspotX>0</HotspotX>
+            <HotspotY>0</HotspotY>
+            <PlayerStartsWithItem>True</PlayerStartsWithItem>
+            <CursorImage>0</CursorImage>
+            <Image>73</Image>
+            <Description>Shirt</Description>
+            <Name>iShirt</Name>
             <Properties />
             <Interactions>
               <Event Index="0" />
@@ -2001,11 +2078,11 @@
             <ScriptName>cTrenton</ScriptName>
             <RealName>Trenton</RealName>
             <NormalView>17</NormalView>
-            <SpeechView>0</SpeechView>
-            <IdleView>17</IdleView>
+            <SpeechView>44</SpeechView>
+            <IdleView>0</IdleView>
             <ThinkingView>0</ThinkingView>
-            <BlinkingView>17</BlinkingView>
-            <StartingRoom>8</StartingRoom>
+            <BlinkingView>0</BlinkingView>
+            <StartingRoom>1</StartingRoom>
             <StartX>45</StartX>
             <StartY>150</StartY>
             <UniformMovementSpeed>True</UniformMovementSpeed>
@@ -2034,7 +2111,7 @@
               <Event Index="0" />
               <Event Index="1" />
               <Event Index="2" />
-              <Event Index="3" />
+              <Event Index="3">cTrenton_UseInv</Event>
               <Event Index="4" />
               <Event Index="5" />
               <Event Index="6" />
@@ -2371,8 +2448,8 @@
             <ThinkingView>0</ThinkingView>
             <BlinkingView>0</BlinkingView>
             <StartingRoom>8</StartingRoom>
-            <StartX>251</StartX>
-            <StartY>152</StartY>
+            <StartX>247</StartX>
+            <StartY>155</StartY>
             <UniformMovementSpeed>True</UniformMovementSpeed>
             <MovementSpeed>3</MovementSpeed>
             <MovementSpeedX>0</MovementSpeedX>
@@ -2395,7 +2472,7 @@
               <Event Index="1" />
               <Event Index="2">cMahlat_Talk</Event>
               <Event Index="3" />
-              <Event Index="4" />
+              <Event Index="4">cMahlat_AnyClick</Event>
               <Event Index="5" />
               <Event Index="6" />
               <Event Index="7" />
@@ -4090,6 +4167,21 @@ stop]]></Script>
                   <FileName>decaf_coffee_inv.png</FileName>
                 </Source>
               </Sprite>
+              <Sprite Slot="71" Width="31" Height="23" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>vape_mag_inv.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="72" Width="31" Height="23" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>doll_inv.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="73" Width="31" Height="23" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>ugly_shirt_inv.png</FileName>
+                </Source>
+              </Sprite>
             </Sprites>
           </SpriteFolder>
           <SpriteFolder Name="Brotag">
@@ -4107,6 +4199,21 @@ stop]]></Script>
               <Sprite Slot="242" Width="24" Height="87" ColorDepth="32" Resolution="LowRes" AlphaChannel="True" />
               <Sprite Slot="243" Width="24" Height="87" ColorDepth="32" Resolution="LowRes" AlphaChannel="True" />
               <Sprite Slot="244" Width="24" Height="86" ColorDepth="32" Resolution="LowRes" AlphaChannel="True" />
+              <Sprite Slot="74" Width="24" Height="87" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>trenton_ugly_shirt.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="107" Width="24" Height="87" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>trenton_talk_left.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="108" Width="24" Height="87" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>trenton_talk_right.png</FileName>
+                </Source>
+              </Sprite>
             </Sprites>
           </SpriteFolder>
           <SpriteFolder Name="testChar">
@@ -4171,6 +4278,174 @@ stop]]></Script>
                   </SpriteFolder>
                 </SubFolders>
                 <Sprites />
+              </SpriteFolder>
+              <SpriteFolder Name="SecondChanceSign">
+                <SubFolders />
+                <Sprites>
+                  <Sprite Slot="76" Width="68" Height="26" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>pants_sign.png</FileName>
+                    </Source>
+                  </Sprite>
+                </Sprites>
+              </SpriteFolder>
+              <SpriteFolder Name="Dog">
+                <SubFolders />
+                <Sprites>
+                  <Sprite Slot="77" Width="35" Height="30" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>dog.png</FileName>
+                    </Source>
+                  </Sprite>
+                </Sprites>
+              </SpriteFolder>
+              <SpriteFolder Name="OpenMagazine">
+                <SubFolders />
+                <Sprites>
+                  <Sprite Slot="78" Width="29" Height="26" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>openmagazine.png</FileName>
+                    </Source>
+                  </Sprite>
+                </Sprites>
+              </SpriteFolder>
+              <SpriteFolder Name="SmokePuff">
+                <SubFolders />
+                <Sprites>
+                  <Sprite Slot="79" Width="51" Height="41" ColorDepth="32" Resolution="LowRes" AlphaChannel="True" />
+                  <Sprite Slot="80" Width="51" Height="41" ColorDepth="32" Resolution="LowRes" AlphaChannel="True" />
+                  <Sprite Slot="81" Width="52" Height="46" ColorDepth="32" Resolution="LowRes" AlphaChannel="True" />
+                </Sprites>
+              </SpriteFolder>
+              <SpriteFolder Name="Purse">
+                <SubFolders />
+                <Sprites>
+                  <Sprite Slot="82" Width="27" Height="28" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>purse.png</FileName>
+                    </Source>
+                  </Sprite>
+                </Sprites>
+              </SpriteFolder>
+              <SpriteFolder Name="Teleport">
+                <SubFolders />
+                <Sprites>
+                  <Sprite Slot="83" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport00.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="84" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport01.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="85" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport02.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="86" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport03.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="87" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport04.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="88" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport05.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="89" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport06.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="90" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport07.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="91" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport08.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="92" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport09.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="93" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport10.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="94" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport11.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="95" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport12.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="96" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport13.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="97" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport14.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="98" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport15.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="99" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport16.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="100" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport17.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="101" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport18.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="102" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport19.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="103" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport20.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="104" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport21.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="105" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>teleport/teleport22.png</FileName>
+                    </Source>
+                  </Sprite>
+                </Sprites>
               </SpriteFolder>
             </SubFolders>
             <Sprites />
@@ -4305,6 +4580,11 @@ stop]]></Script>
               <Sprite Slot="70" Width="116" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
                 <Source>
                   <FileName>mahlat_talk.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="106" Width="116" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>Mahlatdisgusted.png</FileName>
                 </Source>
               </Sprite>
             </Sprites>
@@ -4983,6 +5263,25 @@ stop]]></Script>
                   </Loop>
                 </Loops>
               </View>
+              <View>
+                <ID>45</ID>
+                <Name>vMahlatDisgusted</Name>
+                <Loops>
+                  <Loop>
+                    <ID>0</ID>
+                    <RunNextLoop>False</RunNextLoop>
+                    <Frames>
+                      <ViewFrame>
+                        <ID>0</ID>
+                        <Image>106</Image>
+                        <Flipped>False</Flipped>
+                        <Delay>0</Delay>
+                        <Sound>0</Sound>
+                      </ViewFrame>
+                    </Frames>
+                  </Loop>
+                </Loops>
+              </View>
             </Views>
           </ViewFolder>
         </SubFolders>
@@ -5511,15 +5810,301 @@ stop]]></Script>
               </Loop>
             </Loops>
           </View>
+          <View>
+            <ID>41</ID>
+            <Name>vTrentonUgly</Name>
+            <Loops>
+              <Loop>
+                <ID>0</ID>
+                <RunNextLoop>False</RunNextLoop>
+                <Frames>
+                  <ViewFrame>
+                    <ID>0</ID>
+                    <Image>74</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                </Frames>
+              </Loop>
+            </Loops>
+          </View>
+          <View>
+            <ID>42</ID>
+            <Name>vSmokePuff</Name>
+            <Loops>
+              <Loop>
+                <ID>0</ID>
+                <RunNextLoop>False</RunNextLoop>
+                <Frames>
+                  <ViewFrame>
+                    <ID>0</ID>
+                    <Image>79</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>1</ID>
+                    <Image>80</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>2</ID>
+                    <Image>81</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                </Frames>
+              </Loop>
+            </Loops>
+          </View>
+          <View>
+            <ID>43</ID>
+            <Name>vTeleport</Name>
+            <Loops>
+              <Loop>
+                <ID>0</ID>
+                <RunNextLoop>False</RunNextLoop>
+                <Frames>
+                  <ViewFrame>
+                    <ID>0</ID>
+                    <Image>83</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>1</ID>
+                    <Image>84</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>2</ID>
+                    <Image>85</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>3</ID>
+                    <Image>86</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>4</ID>
+                    <Image>87</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>5</ID>
+                    <Image>88</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>6</ID>
+                    <Image>89</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>7</ID>
+                    <Image>90</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>8</ID>
+                    <Image>91</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>9</ID>
+                    <Image>92</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>10</ID>
+                    <Image>93</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>11</ID>
+                    <Image>94</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>12</ID>
+                    <Image>95</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>13</ID>
+                    <Image>96</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>14</ID>
+                    <Image>97</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>15</ID>
+                    <Image>98</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>16</ID>
+                    <Image>99</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>17</ID>
+                    <Image>100</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>18</ID>
+                    <Image>101</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>19</ID>
+                    <Image>102</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>20</ID>
+                    <Image>103</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>21</ID>
+                    <Image>104</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>22</ID>
+                    <Image>105</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                </Frames>
+              </Loop>
+            </Loops>
+          </View>
+          <View>
+            <ID>44</ID>
+            <Name>vTrentonSpeak</Name>
+            <Loops>
+              <Loop>
+                <ID>0</ID>
+                <RunNextLoop>False</RunNextLoop>
+                <Frames>
+                  <ViewFrame>
+                    <ID>0</ID>
+                    <Image>234</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>1</ID>
+                    <Image>107</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                </Frames>
+              </Loop>
+              <Loop>
+                <ID>1</ID>
+                <RunNextLoop>False</RunNextLoop>
+                <Frames>
+                  <ViewFrame>
+                    <ID>0</ID>
+                    <Image>234</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>1</ID>
+                    <Image>107</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                </Frames>
+              </Loop>
+              <Loop>
+                <ID>2</ID>
+                <RunNextLoop>False</RunNextLoop>
+                <Frames>
+                  <ViewFrame>
+                    <ID>0</ID>
+                    <Image>237</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>1</ID>
+                    <Image>108</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                </Frames>
+              </Loop>
+            </Loops>
+          </View>
         </Views>
       </ViewFolder>
     </Views>
     <DeletedViews>
-      <ViewID>41</ViewID>
-      <ViewID>42</ViewID>
-      <ViewID>43</ViewID>
-      <ViewID>45</ViewID>
-      <ViewID>44</ViewID>
       <ViewID>23</ViewID>
       <ViewID>40</ViewID>
       <ViewID>47</ViewID>
