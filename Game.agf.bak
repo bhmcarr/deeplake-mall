@@ -191,6 +191,28 @@
         <AppliesToRooms>True</AppliesToRooms>
         <Type>Boolean</Type>
       </CustomPropertySchemaItem>
+      <CustomPropertySchemaItem>
+        <Name>openingScene</Name>
+        <Description xml:space="preserve">openingScene has played once already</Description>
+        <DefaultValue>0</DefaultValue>
+        <AppliesToCharacters>False</AppliesToCharacters>
+        <AppliesToHotspots>False</AppliesToHotspots>
+        <AppliesToInvItems>False</AppliesToInvItems>
+        <AppliesToObjects>False</AppliesToObjects>
+        <AppliesToRooms>True</AppliesToRooms>
+        <Type>Boolean</Type>
+      </CustomPropertySchemaItem>
+      <CustomPropertySchemaItem>
+        <Name>seenChetShop</Name>
+        <Description xml:space="preserve">seen chet's vape store</Description>
+        <DefaultValue>0</DefaultValue>
+        <AppliesToCharacters>True</AppliesToCharacters>
+        <AppliesToHotspots>True</AppliesToHotspots>
+        <AppliesToInvItems>True</AppliesToInvItems>
+        <AppliesToObjects>True</AppliesToObjects>
+        <AppliesToRooms>True</AppliesToRooms>
+        <Type>Boolean</Type>
+      </CustomPropertySchemaItem>
     </PropertyDefinitions>
     <GlobalMessages>
       <Message ID="500" />
@@ -1888,14 +1910,14 @@
             <ID>6</ID>
             <HotspotX>0</HotspotX>
             <HotspotY>0</HotspotY>
-            <PlayerStartsWithItem>True</PlayerStartsWithItem>
+            <PlayerStartsWithItem>False</PlayerStartsWithItem>
             <CursorImage>0</CursorImage>
             <Image>73</Image>
-            <Description>Shirt</Description>
+            <Description xml:space="preserve">Stylish Shirt</Description>
             <Name>iShirt</Name>
             <Properties />
             <Interactions>
-              <Event Index="0" />
+              <Event Index="0">iShirt_Look</Event>
               <Event Index="1" />
               <Event Index="2" />
               <Event Index="3" />
@@ -2092,7 +2114,7 @@
             <AnimationDelay>4</AnimationDelay>
             <SpeechAnimationDelay>5</SpeechAnimationDelay>
             <SpeechColor>34815</SpeechColor>
-            <Solid>True</Solid>
+            <Solid>False</Solid>
             <Clickable>True</Clickable>
             <UseRoomAreaScaling>True</UseRoomAreaScaling>
             <UseRoomAreaLighting>True</UseRoomAreaLighting>
@@ -2176,7 +2198,7 @@
             <MovementSpeedY>0</MovementSpeedY>
             <AnimationDelay>4</AnimationDelay>
             <SpeechAnimationDelay>5</SpeechAnimationDelay>
-            <SpeechColor>63</SpeechColor>
+            <SpeechColor>50719</SpeechColor>
             <Solid>True</Solid>
             <Clickable>True</Clickable>
             <UseRoomAreaScaling>True</UseRoomAreaScaling>
@@ -2363,7 +2385,7 @@
             <ScriptName>cTravis</ScriptName>
             <RealName>Travis</RealName>
             <NormalView>35</NormalView>
-            <SpeechView>36</SpeechView>
+            <SpeechView>35</SpeechView>
             <IdleView>0</IdleView>
             <ThinkingView>0</ThinkingView>
             <BlinkingView>0</BlinkingView>
@@ -2430,7 +2452,7 @@
             <Interactions>
               <Event Index="0" />
               <Event Index="1" />
-              <Event Index="2" />
+              <Event Index="2">cSavitri_Talk</Event>
               <Event Index="3" />
               <Event Index="4" />
               <Event Index="5" />
@@ -2615,6 +2637,30 @@ stop
 ]]></Script>
                 <DialogOptions />
               </Dialog>
+              <Dialog>
+                <ID>9</ID>
+                <Name>dBillOpening</Name>
+                <ShowTextParser>False</ShowTextParser>
+                <Script><![CDATA[// Dialog script file
+@S  // Dialog startup entry point
+Trenton: Hey Bill. I'm clockin' in.
+Bill: Sure th- hang on a sec.
+Trenton: ?
+Bill: What's with that shirt yer wearing?
+Trenton: ..this? My aunt gave this to me!
+Bill: It's hideous.
+Trenton: I think it's stylish.
+Bill: You think a lotta things.
+Trenton: I never asked for your opinion anyways.
+Trenton: I'm gonna go get changed.
+  player.AddInventory(iShirt);
+  player.ChangeRoom(1);
+  cTrenton.ChangeView(17);
+  cTrenton.SpeechView = 44;
+stop
+]]></Script>
+                <DialogOptions />
+              </Dialog>
             </Dialogs>
           </DialogFolder>
           <DialogFolder Name="OfficeComputer">
@@ -2692,21 +2738,27 @@ stop
                 <Script><![CDATA[// Dialog script file
 @S  // Dialog startup entry point
   if(cTrenton.GetProperty("knowsAboutDonors") == true){
-    dialog[3].SetOptionState(1, eOptionOn);
+    dialog[3].SetOptionState(3, eOptionOn);
   }
   //TODO: Fix Chet's dialog tree
 cTrenton: Hi.
-Chet: Hey.
+Chet: ..hey.
 return
 
 @1
-Chet: I might know a thing or two.. what's it to you?
-option-off 1;
-option-on 2;
+Chet: What's it to you? You trying to make small-talk with me?
+Trenton: I was just asking how you were doing..
+option-off-forever 1;
 return
 
 @2
-option-off 2;
+Chet: We're just skating in the parking lot. Is that not allowed??
+Trenton: ... not really, but whatever.
+return
+
+@3
+Chet: What's it to you?
+Trenton: She seems suspicious..
 Chet: Man, you mall-cops think EVERYODY is suspicious.
 Chet: .. but you're sort of right I guess.
 cTrenton: So? What's her deal?
@@ -2716,35 +2768,46 @@ cTrenton: Killed?!
 Chet: Well, maybe not killed..
 cTrenton: This is serious! She let something slip about "donors."
 Chet: * sigh *
+Trenton: Look, there's obviously something serious going on in there..
+Trenton: Can you just tell me what you know?
+Chet: . . .
+Chet: I'll tell you if..
+Chet: . . .
+Chet: You get me last month's VAPE Magazine..
+Trenton: ..are you kidding me?
+Chet: Look, I'm not keen on helping.. your kind.. but that issue sold out within hours of it hitting the stands.
+Chet: My collection is incomplete.. I'm losing sleep over it.
+Trenton: I can't beleive this..
+Chet: Get me the magazine, and maybe then we'll talk.
 return
 
-@3
-stop
 @4
-return
+Chet: Don't hurry back..
+stop
+
 ]]></Script>
                 <DialogOptions>
                   <DialogOption>
                     <ID>1</ID>
+                    <Text xml:space="preserve">How are you doing today?</Text>
+                    <Show>True</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>2</ID>
+                    <Text xml:space="preserve">I noticed you and your friends have been hanging out after hours..</Text>
+                    <Show>True</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>3</ID>
                     <Text xml:space="preserve">Do you know anything about the lady in the purse store?</Text>
                     <Show>False</Show>
                     <Say>True</Say>
                   </DialogOption>
                   <DialogOption>
-                    <ID>2</ID>
-                    <Text xml:space="preserve">She seems suspicious.</Text>
-                    <Show>False</Show>
-                    <Say>True</Say>
-                  </DialogOption>
-                  <DialogOption>
-                    <ID>3</ID>
-                    <Text>Bye.</Text>
-                    <Show>True</Show>
-                    <Say>True</Say>
-                  </DialogOption>
-                  <DialogOption>
                     <ID>4</ID>
-                    <Text>test</Text>
+                    <Text xml:space="preserve">Just checking in, seeya.</Text>
                     <Show>True</Show>
                     <Say>True</Say>
                   </DialogOption>
@@ -2924,15 +2987,43 @@ stop]]></Script>
 @S  // Dialog startup entry point
 Amrita: Hey Trent!
 Savitri: "Heyy Treennntt~!"
+Amrita: . . .
 return
 
 @1
 Amrita: Oh.. y'know. Stuff.
+Amrita: How are you? What are you up to? Take down any crime syndicates lately?
+Trenton: Heh, not exactly. I'm a mall cop, Amrita.
+Amrita: A good one!
+Savitri: Ohh, mall cops are soOoOo dreamy~!
+  cAmrita.FaceDirection(eDirectionRight);
+Amrita: Don't you have somewhere else to be?
+  cAmrita.FaceDirection(eDirectionLeft);
+option-off-forever 1;
+option-on 2;
 return
 
 @2
-Amrita: Seeya!
-stop]]></Script>
+Amrita: Have you been in the new purse store yet? 
+Amrita: Didn't that lady give you a weird vibe?
+Trenton: Weird vibe? What do you mean?
+Amrita: Well, I'm usually the last one left in the food court before the mall closes..
+Amrita: and I don't think I've ever seen any employees leave the store.
+  if (cTrenton.GetProperty("knowsAboutDonors") == true){
+    dialog[6].SetOptionState(3,eOptionOn);
+  }
+return
+// press for more info
+@3
+Trenton: What do you think is going on?
+Amrita: Have you asked Chet? He's always out super-late in the parking lot with his friends..
+return
+
+@4
+Amrita: Bye Trent!
+Savitri: Byyyeeee Treeennt!!
+stop
+]]></Script>
                 <DialogOptions>
                   <DialogOption>
                     <ID>1</ID>
@@ -2942,7 +3033,19 @@ stop]]></Script>
                   </DialogOption>
                   <DialogOption>
                     <ID>2</ID>
-                    <Text xml:space="preserve">Gotta go, bye!</Text>
+                    <Text xml:space="preserve">Heard any gossip lately?</Text>
+                    <Show>True</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>3</ID>
+                    <Text xml:space="preserve">That lady seems totally out there.</Text>
+                    <Show>False</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>4</ID>
+                    <Text xml:space="preserve">Well, seeya later.</Text>
                     <Show>True</Show>
                     <Say>True</Say>
                   </DialogOption>
@@ -2985,7 +3088,9 @@ return
 
 @5
 Travis: . . .
+Savitri: You're not gonna get anywhere with that one.
 option-off 5;
+option-on 1;
 return
 ]]></Script>
                 <DialogOptions>
@@ -3038,6 +3143,114 @@ stop]]></Script>
                   <DialogOption>
                     <ID>1</ID>
                     <Text>Bye.</Text>
+                    <Show>True</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                </DialogOptions>
+              </Dialog>
+            </Dialogs>
+          </DialogFolder>
+          <DialogFolder Name="Savitri">
+            <SubFolders />
+            <Dialogs>
+              <Dialog>
+                <ID>10</ID>
+                <Name>dSavitri1</Name>
+                <ShowTextParser>False</ShowTextParser>
+                <Script><![CDATA[// Dialog script file
+@S  // Dialog startup entry point
+Savitri: Hey look! It's the mall cop!
+return
+
+@1
+Savitri: If you used your famous detective skills, you would see that I'm sitting here reading a magazine.
+  cAmrita.FaceDirection(eDirectionRight);
+Amrita: Will you stop being so rude?
+Savitri: I will after you quit it with the flirty stuff.
+Amrita: I've got an idea! Why don't you take that magazine down to the library and-
+Savitri: Nope, I'm comfy right here, next to Butter Castle.
+Savitri: Thanks.
+  cAmrita.FaceDirection(eDirectionLeft);
+option-on 2;
+return
+
+@2
+Savitri: Trying to stay hip or something?
+Savitri: If you really have to know, it's last month's issue of VAPE magazine.
+Savitri: I bought the last copy to piss off Chet.
+  cAmrita.FaceDirection(eDirectionRight);
+Amrita: Language!
+  cAmrita.FaceDirection(eDirectionLeft);
+Savitri: My sister is a hit at parties..
+return
+
+// TODO: Make this option only appear when you need it to !!!
+// Turn OFF Show option 3 in the list and only show it when chet asks you to get the magazine
+@3
+Savitri: Woah woah detective, can't you see that I'm reading it?
+Trenton: It's really important, can I just have it?
+Savitri: I don't really want this stupid thing..
+Savitri: ..but now that you want it, I really am having a hard time parting with it.
+option-off 3; 
+option-on 4;
+return
+
+@4
+Savitri: Hm.. well..
+Savitri: Have you ever heard of Radish Patch dolls?
+Trenton: Uhh, yeah. I think my sister had one when we were kids..
+Savitri: When was that? A hundred years ago?
+Trenton: Can you just get to the point please?
+Savitri: That little old lady at the thrift store has one for sale.
+Savitri: She has no idea what she has, they're worth a fortune.
+Savitri: If you can get me that doll, I'll give you this dumb magazine. 
+option-on 5;
+return
+
+@5
+Savitri: I'm gonna sell it on GBay, Sherlock.
+Savitri: If you want the magazine, you're gonna need to get me that doll.
+option-off-forever 5;
+return
+
+@6
+Savitri: Say hi to Bill for me!
+stop
+]]></Script>
+                <DialogOptions>
+                  <DialogOption>
+                    <ID>1</ID>
+                    <Text xml:space="preserve">Sitting here bothering your sister again?</Text>
+                    <Show>True</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>2</ID>
+                    <Text xml:space="preserve">What magazine is that?</Text>
+                    <Show>True</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>3</ID>
+                    <Text xml:space="preserve">You think I could have that magazine?</Text>
+                    <Show>True</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>4</ID>
+                    <Text xml:space="preserve">Look, is there anything I can trade you for it?</Text>
+                    <Show>False</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>5</ID>
+                    <Text xml:space="preserve">I never took you for one who'd be into dolls..</Text>
+                    <Show>False</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>6</ID>
+                    <Text xml:space="preserve">I'm heading out. Stay out of trouble.</Text>
                     <Show>True</Show>
                     <Say>True</Say>
                   </DialogOption>
@@ -4214,6 +4427,11 @@ stop]]></Script>
                   <FileName>trenton_talk_right.png</FileName>
                 </Source>
               </Sprite>
+              <Sprite Slot="109" Width="24" Height="87" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>trenton_ugly_talking.png</FileName>
+                </Source>
+              </Sprite>
             </Sprites>
           </SpriteFolder>
           <SpriteFolder Name="testChar">
@@ -4535,6 +4753,16 @@ stop]]></Script>
               <Sprite Slot="64" Width="33" Height="41" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
                 <Source>
                   <FileName>amrita_talk.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="110" Width="33" Height="41" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>amrita_right.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="111" Width="33" Height="41" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>amrita_talk_right.png</FileName>
                 </Source>
               </Sprite>
             </Sprites>
@@ -4967,7 +5195,7 @@ stop]]></Script>
                     <Frames>
                       <ViewFrame>
                         <ID>0</ID>
-                        <Image>0</Image>
+                        <Image>63</Image>
                         <Flipped>False</Flipped>
                         <Delay>0</Delay>
                         <Sound>0</Sound>
@@ -4980,7 +5208,7 @@ stop]]></Script>
                     <Frames>
                       <ViewFrame>
                         <ID>0</ID>
-                        <Image>0</Image>
+                        <Image>110</Image>
                         <Flipped>False</Flipped>
                         <Delay>0</Delay>
                         <Sound>0</Sound>
@@ -5012,6 +5240,46 @@ stop]]></Script>
                       <ViewFrame>
                         <ID>1</ID>
                         <Image>64</Image>
+                        <Flipped>False</Flipped>
+                        <Delay>0</Delay>
+                        <Sound>0</Sound>
+                      </ViewFrame>
+                    </Frames>
+                  </Loop>
+                  <Loop>
+                    <ID>1</ID>
+                    <RunNextLoop>False</RunNextLoop>
+                    <Frames>
+                      <ViewFrame>
+                        <ID>0</ID>
+                        <Image>63</Image>
+                        <Flipped>False</Flipped>
+                        <Delay>0</Delay>
+                        <Sound>0</Sound>
+                      </ViewFrame>
+                      <ViewFrame>
+                        <ID>1</ID>
+                        <Image>64</Image>
+                        <Flipped>False</Flipped>
+                        <Delay>0</Delay>
+                        <Sound>0</Sound>
+                      </ViewFrame>
+                    </Frames>
+                  </Loop>
+                  <Loop>
+                    <ID>2</ID>
+                    <RunNextLoop>False</RunNextLoop>
+                    <Frames>
+                      <ViewFrame>
+                        <ID>0</ID>
+                        <Image>110</Image>
+                        <Flipped>False</Flipped>
+                        <Delay>0</Delay>
+                        <Sound>0</Sound>
+                      </ViewFrame>
+                      <ViewFrame>
+                        <ID>1</ID>
+                        <Image>111</Image>
                         <Flipped>False</Flipped>
                         <Delay>0</Delay>
                         <Sound>0</Sound>
@@ -6101,11 +6369,76 @@ stop]]></Script>
               </Loop>
             </Loops>
           </View>
+          <View>
+            <ID>23</ID>
+            <Name>vTrentonUglyTalk</Name>
+            <Loops>
+              <Loop>
+                <ID>0</ID>
+                <RunNextLoop>False</RunNextLoop>
+                <Frames>
+                  <ViewFrame>
+                    <ID>0</ID>
+                    <Image>74</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>1</ID>
+                    <Image>109</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                </Frames>
+              </Loop>
+              <Loop>
+                <ID>1</ID>
+                <RunNextLoop>False</RunNextLoop>
+                <Frames>
+                  <ViewFrame>
+                    <ID>0</ID>
+                    <Image>74</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>1</ID>
+                    <Image>109</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                </Frames>
+              </Loop>
+              <Loop>
+                <ID>2</ID>
+                <RunNextLoop>False</RunNextLoop>
+                <Frames>
+                  <ViewFrame>
+                    <ID>0</ID>
+                    <Image>74</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>1</ID>
+                    <Image>74</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                </Frames>
+              </Loop>
+            </Loops>
+          </View>
         </Views>
       </ViewFolder>
     </Views>
     <DeletedViews>
-      <ViewID>23</ViewID>
       <ViewID>40</ViewID>
       <ViewID>47</ViewID>
       <ViewID>49</ViewID>
