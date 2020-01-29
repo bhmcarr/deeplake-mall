@@ -268,6 +268,17 @@
         <AppliesToRooms>True</AppliesToRooms>
         <Type>Boolean</Type>
       </CustomPropertySchemaItem>
+      <CustomPropertySchemaItem>
+        <Name>stoppedChet</Name>
+        <Description xml:space="preserve">you stopped Chet and his friends</Description>
+        <DefaultValue>0</DefaultValue>
+        <AppliesToCharacters>True</AppliesToCharacters>
+        <AppliesToHotspots>True</AppliesToHotspots>
+        <AppliesToInvItems>True</AppliesToInvItems>
+        <AppliesToObjects>True</AppliesToObjects>
+        <AppliesToRooms>True</AppliesToRooms>
+        <Type>Boolean</Type>
+      </CustomPropertySchemaItem>
     </PropertyDefinitions>
     <GlobalMessages>
       <Message ID="500" />
@@ -1954,7 +1965,7 @@
             <Name>iDoll</Name>
             <Properties />
             <Interactions>
-              <Event Index="0" />
+              <Event Index="0">iDoll_Look</Event>
               <Event Index="1" />
               <Event Index="2" />
               <Event Index="3" />
@@ -2199,6 +2210,10 @@
             <Properties>
               <CustomProperty>
                 <Name>spokenToYvonne</Name>
+                <Value>1</Value>
+              </CustomProperty>
+              <CustomProperty>
+                <Name>needDoll</Name>
                 <Value>1</Value>
               </CustomProperty>
             </Properties>
@@ -2746,6 +2761,7 @@ stop
                 <ShowTextParser>False</ShowTextParser>
                 <Script><![CDATA[// Dialog script file
 @S  // Dialog startup entry point
+  cTrenton.FaceDirection(eDirectionUpLeft);
 Trenton: *clack clack clack*
 Trenton: Hm...
 return
@@ -2814,12 +2830,7 @@ stop
   if(cTrenton.GetProperty("knowsAboutDonors") == true){
     dialog[3].SetOptionState(3, eOptionOn);
   }
-  if(cTrenton.GetProperty("sawFootage") == true){
-    dialog[3].SetOptionState(1, eOptionOff);
-    dialog[3].SetOptionState(2, eOptionOff);
-    dialog[3].SetOptionState(3, eOptionOff);
-    dialog[3].SetOptionState(5, eOptionOn);
-  }
+
 cTrenton: Hi.
 Chet: ..hey.
 return
@@ -2865,10 +2876,6 @@ return
 @4
 Chet: Don't hurry back..
 stop
-
-@5
-Chet: ..I have no idea what you're talking about.
-return
 ]]></Script>
                 <DialogOptions>
                   <DialogOption>
@@ -2895,9 +2902,59 @@ return
                     <Show>True</Show>
                     <Say>True</Say>
                   </DialogOption>
+                </DialogOptions>
+              </Dialog>
+              <Dialog>
+                <ID>12</ID>
+                <Name>dChetDialog2</Name>
+                <ShowTextParser>False</ShowTextParser>
+                <Script><![CDATA[// Dialog script file
+@S  // Dialog startup entry point
+Chet: Back so soon?
+return
+
+@1
+Chet: I- uh. I have no idea what you're talking about.
+Trenton: Uh huh..
+option-off 1;
+option-on 2;
+option-on 3;
+return
+
+@2
+Chet: W-wait a minute! It was all their idea!
+Trenton: You're an accomplice.
+Chet: I'll tell them to stop. Just don't tell my manager, I can't lose this job!
+Trenton: Sure, but you'd better go and apologize to Rose.
+Chet: ..yeah.
+Trenton: Seriously, it's an old lady! She can barely get out the door as it is, and you're making her deal with vandalism?
+Chet: Yeah, yeah, I hear ya. I'll go down there on my break.
+  cTrenton.SetProperty("stoppedChet", 1);
+  cTrenton.SetProperty("sawFootage", 0);
+  cTrenton.SetProperty("stopChet", 0);
+stop
+
+@3
+Chet: Yep.
+Chet: Positive.
+return
+]]></Script>
+                <DialogOptions>
                   <DialogOption>
-                    <ID>5</ID>
-                    <Text xml:space="preserve">Hey, tell your friends to quit harassing Rose.</Text>
+                    <ID>1</ID>
+                    <Text xml:space="preserve">Hey Chet, you and your friends been around Second Chance lately?</Text>
+                    <Show>True</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>2</ID>
+                    <Text xml:space="preserve">Drop the act, beardy. I saw you and your punk friends on the camera.</Text>
+                    <Show>False</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>3</ID>
+                    <Text xml:space="preserve">Are you sure?</Text>
                     <Show>False</Show>
                     <Say>True</Say>
                   </DialogOption>
@@ -2917,6 +2974,10 @@ return
   if(cTrenton.GetProperty("needDoll") == true){
     dialog[4].SetOptionState(6, eOptionOn);
     dialog[4].SetOptionState(1, eOptionOff);
+  }
+  else{
+    dialog[4].SetOptionState(6, eOptionOff);
+    dialog[4].SetOptionState(1, eOptionOn);
   }
 
 Rose: Hello sweetie.
@@ -3000,6 +3061,86 @@ return
                   <DialogOption>
                     <ID>6</ID>
                     <Text xml:space="preserve">Hey Rose, what's up with your sign?</Text>
+                    <Show>False</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                </DialogOptions>
+              </Dialog>
+              <Dialog>
+                <ID>13</ID>
+                <Name>dRoseDialog2</Name>
+                <ShowTextParser>False</ShowTextParser>
+                <Script><![CDATA[// Dialog script file
+@S  // Dialog startup entry point
+Rose: You're just in time!
+Rose: The young man who said he was from the grape stope just came in and apologized.
+Rose: I think his name was... Brett?
+Trenton: Did you say grape-
+Rose: Apparently his friends are a bad influence on him, rotten apples.
+Rose: He should be outside any moment to take the sign down.
+Trenton: Well, I had a talk with him earlier. Looks like he kept his word.
+Rose: Thank you dear, if there's anything I can do for you, please let me know.
+Trenton: There is one thing, actually.
+Rose: Oh, what is it?
+option-on 1;
+option-on 2;
+option-on 3;
+option-on 4;
+return
+
+@1
+Rose: Aerosol? Hmm.. I don't think I've got anything like that.
+Trenton: No, wait..
+return
+
+@2
+Rose: Yes, Brett's in the hall fixing my sign.
+Rose: I wonder if he's finished yet.
+Trenton: Yes, but-
+return
+
+@3
+Rose: You had a nasty fall? You've got to be careful out there!
+Rose: Don't be a hero, sonny! Heh heh.
+Chet: I will, but-
+return
+
+@4
+Rose: That's a real shame, dear.
+Rose: Tell ya what.. I've got this vintage Radish Patch doll here.
+Rose: Very rare. They stopped making these in the 80s, and they've become quite the collector's item.
+Rose: I was going to get it minted, but I think you should have it.
+Rose: Think of it as a keepsake of the time you helped this old coot. Haha!
+Trenton: Wow.. thank you Rose!
+  player.AddInventory(iDoll);
+Rose: Any time sweetie, now run along! I don't want Bill giving you a hard time for slacking off!
+Trenton: Alright, I'm off!
+  cTrenton.SetProperty("needDoll", 0);
+  cTrenton.SetProperty("stoppedChet", 0);
+stop
+]]></Script>
+                <DialogOptions>
+                  <DialogOption>
+                    <ID>1</ID>
+                    <Text xml:space="preserve">It's a doll.</Text>
+                    <Show>False</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>2</ID>
+                    <Text xml:space="preserve">It's a ball.</Text>
+                    <Show>False</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>3</ID>
+                    <Text xml:space="preserve">It's down the hall.</Text>
+                    <Show>False</Show>
+                    <Say>True</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>4</ID>
+                    <Text xml:space="preserve">I can't seem to recall.</Text>
                     <Show>False</Show>
                     <Say>True</Say>
                   </DialogOption>
