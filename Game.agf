@@ -73,7 +73,7 @@
       <SaveGameFileExtension />
       <SaveGameFolderName xml:space="preserve">Mall Cop</SaveGameFolderName>
       <BinaryFilesInSourceControl>False</BinaryFilesInSourceControl>
-      <AudioIndexer>94</AudioIndexer>
+      <AudioIndexer>97</AudioIndexer>
       <BuildTargets xml:space="preserve">Windows, Linux</BuildTargets>
       <RenderAtScreenResolution>UserDefined</RenderAtScreenResolution>
     </Settings>
@@ -282,6 +282,17 @@
       <CustomPropertySchemaItem>
         <Name>closingTime</Name>
         <Description xml:space="preserve">time to transition to after-hours state of the game</Description>
+        <DefaultValue>0</DefaultValue>
+        <AppliesToCharacters>True</AppliesToCharacters>
+        <AppliesToHotspots>True</AppliesToHotspots>
+        <AppliesToInvItems>True</AppliesToInvItems>
+        <AppliesToObjects>True</AppliesToObjects>
+        <AppliesToRooms>True</AppliesToRooms>
+        <Type>Boolean</Type>
+      </CustomPropertySchemaItem>
+      <CustomPropertySchemaItem>
+        <Name>endingScene</Name>
+        <Description />
         <DefaultValue>0</DefaultValue>
         <AppliesToCharacters>True</AppliesToCharacters>
         <AppliesToHotspots>True</AppliesToHotspots>
@@ -851,6 +862,14 @@
           </UnloadedRoom>
           <UnloadedRoom>
             <Number>12</Number>
+            <Description IsNull="True" />
+          </UnloadedRoom>
+          <UnloadedRoom>
+            <Number>13</Number>
+            <Description IsNull="True" />
+          </UnloadedRoom>
+          <UnloadedRoom>
+            <Number>14</Number>
             <Description IsNull="True" />
           </UnloadedRoom>
         </UnloadedRooms>
@@ -1969,7 +1988,7 @@
             <ID>5</ID>
             <HotspotX>0</HotspotX>
             <HotspotY>0</HotspotY>
-            <PlayerStartsWithItem>True</PlayerStartsWithItem>
+            <PlayerStartsWithItem>False</PlayerStartsWithItem>
             <CursorImage>0</CursorImage>
             <Image>73</Image>
             <Description xml:space="preserve">Stylish Shirt</Description>
@@ -2181,7 +2200,7 @@
             <IdleView>0</IdleView>
             <ThinkingView>0</ThinkingView>
             <BlinkingView>0</BlinkingView>
-            <StartingRoom>1</StartingRoom>
+            <StartingRoom>8</StartingRoom>
             <StartX>45</StartX>
             <StartY>150</StartY>
             <UniformMovementSpeed>True</UniformMovementSpeed>
@@ -2567,6 +2586,46 @@
               <Event Index="2">cMahlat_Talk</Event>
               <Event Index="3" />
               <Event Index="4">cMahlat_AnyClick</Event>
+              <Event Index="5" />
+              <Event Index="6" />
+              <Event Index="7" />
+            </Interactions>
+          </Character>
+          <Character>
+            <ID>10</ID>
+            <ScriptName>cProxy</ScriptName>
+            <RealName xml:space="preserve">New character</RealName>
+            <NormalView>50</NormalView>
+            <SpeechView>0</SpeechView>
+            <IdleView>0</IdleView>
+            <ThinkingView>0</ThinkingView>
+            <BlinkingView>0</BlinkingView>
+            <StartingRoom>8</StartingRoom>
+            <StartX>119</StartX>
+            <StartY>79</StartY>
+            <UniformMovementSpeed>True</UniformMovementSpeed>
+            <MovementSpeed>3</MovementSpeed>
+            <MovementSpeedX>0</MovementSpeedX>
+            <MovementSpeedY>0</MovementSpeedY>
+            <AnimationDelay>4</AnimationDelay>
+            <SpeechAnimationDelay>5</SpeechAnimationDelay>
+            <SpeechColor>63488</SpeechColor>
+            <Solid>True</Solid>
+            <Clickable>True</Clickable>
+            <UseRoomAreaScaling>True</UseRoomAreaScaling>
+            <UseRoomAreaLighting>True</UseRoomAreaLighting>
+            <TurnBeforeWalking>True</TurnBeforeWalking>
+            <DiagonalLoops>True</DiagonalLoops>
+            <AdjustSpeedWithScaling>False</AdjustSpeedWithScaling>
+            <AdjustVolumeWithScaling>False</AdjustVolumeWithScaling>
+            <MovementLinkedToAnimation>True</MovementLinkedToAnimation>
+            <Properties />
+            <Interactions>
+              <Event Index="0" />
+              <Event Index="1" />
+              <Event Index="2" />
+              <Event Index="3" />
+              <Event Index="4" />
               <Event Index="5" />
               <Event Index="6" />
               <Event Index="7" />
@@ -2971,10 +3030,31 @@ Trenton: Not so fast...
 return
 
 @1
-Chet: PURSE LADY INFO HERE
+Trenton: Spill it, Chet.
+Chet: Okay, so.. sometimes when I leave I hear weird chanting coming from the employee door exit.
+Chet: Weird stuff coming from that store.. strange music, pink lights..
+Chet: It gives me the creeps..
+Trenton: Go on..
+Chet: Once I saw a cloaked person taking a bag into the back room with them.
+Chet: It was moving.
+Chet: I swear I heard it.. whimpering..
+Chet: I tried to yell at them, and they just stared back at me with red eyes.
+Trenton: A bag? What do you think was inside?
+Chet: No clue, man. One thing's for sure though.. something is going on in that back room.
+Trenton: I gotta get in there. Anything else?
+Chet: No I.. oh! Right!
+Trenton: What?
+Chet: My girlfriend was in there once too..
+Chet: She swears that a purse.. licked her.
+Trenton: Wait.. what?!
+Chet: Yeah, right?!
+Chet: Look man, I know we don't get along.. like ever..
+Chet: But you should just keep away from there. Who knows what they're doing in that place.
+Chet: I'd hate to see anyone get hurt..
+Trenton: Thanks, Chet.
   player.LoseInventory(iMagazine);
   cTrenton.SetProperty("closingTime", 1);
-Trenton: Thanks, Chet.
+Trenton: Stay safe..
 Chet: Yeah, yeah.
 stop
 @2
@@ -3453,16 +3533,89 @@ return
                 <ShowTextParser>False</ShowTextParser>
                 <Script><![CDATA[// Dialog script file
 @S  // Dialog startup entry point
-Mahlat: Oh darling, you're not supposed to be back here..
-
+  cMahlat.ChangeView(34);
+  cMahlat.Animate(0, 3, eRepeat, eNoBlock);
+Proxy: Oh honey, you're DEFINITELY not supposed to be back here..
+Proxy: If you weren't so cute I'd incinerate you on the spot.
+  cMahlat.ChangeView(39);
+Trenton: What's going on here? Are you.. a monster??
+  cMahlat.ChangeView(34);
+  cMahlat.Animate(0, 3, eRepeat, eNoBlock);
+Proxy: Monster?? How rude.. 
+Proxy: I am the fabulously gorgeous Mahlat.. a beautiful and powerful demon.
+Proxy: And YOU.. are in my store's back room.. where you..
+Proxy: SHOULDN'T.
+Proxy: BE.
+  cMahlat.ChangeView(39);
+Trenton: Did you turn that dog.. wait! The missing pets! This is all your doing!
+  cMahlat.ChangeView(34);
+  cMahlat.Animate(0, 3, eRepeat, eNoBlock);
+Proxy: Why yes, I'm making beautiful purses out of those.. little annoying furry things.
+Proxy: They're the perfect size, perfect composition..
+Proxy: Most importantly, they are things that are.. "loved."
+  cMahlat.ChangeView(39);
+Trenton: I.. you..
+Trenton: You better clear off! Change them all back! These people miss their pets!
+  cMahlat.ChangeView(34);
+  cMahlat.Animate(0, 3, eRepeat, eNoBlock);
+Proxy: Now now.. I appreciate your fire, but you're starting to annoy me.
+Proxy: Your attitude is... ugly. And I-
+Proxy: HATE 
+Proxy: ..ugly things.
+Proxy: Things need to be beautiful, cute, gorgeous... not ugly.
+Proxy: Now.. what to do with you.. so many options..
+Proxy: Death by fire?
+Proxy: I could turn you into a duffle bag? A suitcase?
+Proxy: Oh! How about a nice new pair of shoes..
+  cMahlat.ChangeView(39);
+  cTrenton.FaceDirection(eDirectionLeft);
+Trenton: I've got to do something.. but what?!
 return
+
+@1
+  cTrenton.FaceDirection(eDirectionRight);
+Trenton: I'll have your business license revoked!
+  cMahlat.ChangeView(34);
+  cMahlat.Animate(0, 3, eRepeat, eNoBlock);
+Proxy: License? Honey, after I'm through with you, a medical license won't even be enough to save you.
+  cMahlat.ChangeView(39);
+return
+
+@2
+  cTrenton.ChangeView(41);
+  cTrenton.SpeechView = 23;
+  cTrenton.FaceDirection(eDirectionLeft);
+  
+  cMahlat.ChangeView(47);
+  cMahlat.Animate(0, 3, eRepeat, eNoBlock);
+Proxy: WHAT. Is that?!
+Proxy: THAT.
+Proxy: SHIRT.
+Proxy: IS.
+Proxy: AWFUL!!
+  cMahlat.ChangeView(45);
+Trenton: My aunt made it! It's stylish!
+  cMahlat.ChangeView(47);
+  cTrenton.FaceDirection(eDirectionLeft);
+Proxy: Disgusting.. I can't stay in this realm knowing things like this exist.
+Proxy: Take your filthy little creatures back.. take them all back!
+Proxy: This operation is finished.
+  cMahlat.ChangeView(45);
+  cTrenton.SetProperty("endingScene", 1);
+stop
 ]]></Script>
                 <DialogOptions>
                   <DialogOption>
                     <ID>1</ID>
-                    <Text />
+                    <Text xml:space="preserve">I'll have your business license revoked!</Text>
                     <Show>True</Show>
-                    <Say>True</Say>
+                    <Say>False</Say>
+                  </DialogOption>
+                  <DialogOption>
+                    <ID>2</ID>
+                    <Text xml:space="preserve">(Put on your Stylish Sweater)</Text>
+                    <Show>True</Show>
+                    <Say>False</Say>
                   </DialogOption>
                 </DialogOptions>
               </Dialog>
@@ -4892,6 +5045,16 @@ stop
                       <FileName>dog.png</FileName>
                     </Source>
                   </Sprite>
+                  <Sprite Slot="253" Width="35" Height="30" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>dog/dog00.png</FileName>
+                    </Source>
+                  </Sprite>
+                  <Sprite Slot="254" Width="35" Height="30" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                    <Source>
+                      <FileName>dog/dog01.png</FileName>
+                    </Source>
+                  </Sprite>
                 </Sprites>
               </SpriteFolder>
               <SpriteFolder Name="OpenMagazine">
@@ -5200,6 +5363,111 @@ stop
               <Sprite Slot="106" Width="116" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
                 <Source>
                   <FileName>Mahlatdisgusted.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="252" Width="116" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>mahlat_disgusted_talk.png</FileName>
+                </Source>
+              </Sprite>
+            </Sprites>
+          </SpriteFolder>
+          <SpriteFolder Name="TitleCard">
+            <SubFolders />
+            <Sprites>
+              <Sprite Slot="115" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>titlecard/image00.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="116" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>titlecard/image01.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="117" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>titlecard/image02.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="118" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>titlecard/image03.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="119" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>titlecard/image04.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="120" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>titlecard/image05.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="121" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>titlecard/image06.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="245" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>titlecard/image07.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="246" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>titlecard/image08.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="247" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>titlecard/image09.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="248" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>titlecard/image10.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="249" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>titlecard/image11.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="250" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>titlecard/image12.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="251" Width="320" Height="153" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>titlecard/image13.png</FileName>
+                </Source>
+              </Sprite>
+            </Sprites>
+          </SpriteFolder>
+          <SpriteFolder Name="Proxy">
+            <SubFolders />
+            <Sprites>
+              <Sprite Slot="255" Width="35" Height="30" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>proxy.png</FileName>
+                </Source>
+              </Sprite>
+            </Sprites>
+          </SpriteFolder>
+          <SpriteFolder Name="Ending">
+            <SubFolders />
+            <Sprites>
+              <Sprite Slot="256" Width="611" Height="260" ColorDepth="32" Resolution="LowRes" AlphaChannel="False">
+                <Source>
+                  <FileName>gameend.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="257" Width="646" Height="625" ColorDepth="32" Resolution="LowRes" AlphaChannel="False">
+                <Source>
+                  <FileName>credits.png</FileName>
                 </Source>
               </Sprite>
             </Sprites>
@@ -5937,6 +6205,32 @@ stop
                   </Loop>
                 </Loops>
               </View>
+              <View>
+                <ID>47</ID>
+                <Name>vMahlatDisgustedTalk</Name>
+                <Loops>
+                  <Loop>
+                    <ID>0</ID>
+                    <RunNextLoop>False</RunNextLoop>
+                    <Frames>
+                      <ViewFrame>
+                        <ID>0</ID>
+                        <Image>106</Image>
+                        <Flipped>False</Flipped>
+                        <Delay>0</Delay>
+                        <Sound>0</Sound>
+                      </ViewFrame>
+                      <ViewFrame>
+                        <ID>1</ID>
+                        <Image>252</Image>
+                        <Flipped>False</Flipped>
+                        <Delay>0</Delay>
+                        <Sound>0</Sound>
+                      </ViewFrame>
+                    </Frames>
+                  </Loop>
+                </Loops>
+              </View>
             </Views>
           </ViewFolder>
           <ViewFolder Name="Trenton">
@@ -6396,6 +6690,61 @@ stop
               </View>
             </Views>
           </ViewFolder>
+          <ViewFolder Name="Proxy">
+            <SubFolders />
+            <Views>
+              <View>
+                <ID>50</ID>
+                <Name>View50</Name>
+                <Loops>
+                  <Loop>
+                    <ID>0</ID>
+                    <RunNextLoop>False</RunNextLoop>
+                    <Frames>
+                      <ViewFrame>
+                        <ID>0</ID>
+                        <Image>255</Image>
+                        <Flipped>False</Flipped>
+                        <Delay>0</Delay>
+                        <Sound>0</Sound>
+                      </ViewFrame>
+                    </Frames>
+                  </Loop>
+                  <Loop>
+                    <ID>1</ID>
+                    <RunNextLoop>False</RunNextLoop>
+                    <Frames>
+                      <ViewFrame>
+                        <ID>0</ID>
+                        <Image>0</Image>
+                        <Flipped>False</Flipped>
+                        <Delay>0</Delay>
+                        <Sound>0</Sound>
+                      </ViewFrame>
+                    </Frames>
+                  </Loop>
+                  <Loop>
+                    <ID>2</ID>
+                    <RunNextLoop>False</RunNextLoop>
+                    <Frames>
+                      <ViewFrame>
+                        <ID>0</ID>
+                        <Image>0</Image>
+                        <Flipped>False</Flipped>
+                        <Delay>0</Delay>
+                        <Sound>0</Sound>
+                      </ViewFrame>
+                    </Frames>
+                  </Loop>
+                  <Loop>
+                    <ID>3</ID>
+                    <RunNextLoop>False</RunNextLoop>
+                    <Frames />
+                  </Loop>
+                </Loops>
+              </View>
+            </Views>
+          </ViewFolder>
         </SubFolders>
         <Views>
           <View>
@@ -6783,71 +7132,289 @@ stop
                     <Delay>0</Delay>
                     <Sound>0</Sound>
                   </ViewFrame>
+                </Frames>
+              </Loop>
+            </Loops>
+          </View>
+          <View>
+            <ID>40</ID>
+            <Name>vTitleCard</Name>
+            <Loops>
+              <Loop>
+                <ID>0</ID>
+                <RunNextLoop>False</RunNextLoop>
+                <Frames>
+                  <ViewFrame>
+                    <ID>0</ID>
+                    <Image>115</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>1</ID>
+                    <Image>117</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>2</ID>
+                    <Image>118</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>3</ID>
+                    <Image>119</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>4</ID>
+                    <Image>120</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>5</ID>
+                    <Image>121</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>6</ID>
+                    <Image>245</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>7</ID>
+                    <Image>246</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>8</ID>
+                    <Image>247</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>9</ID>
+                    <Image>248</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>10</ID>
+                    <Image>249</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>11</ID>
+                    <Image>250</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>12</ID>
+                    <Image>251</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
                   <ViewFrame>
                     <ID>13</ID>
+                    <Image>251</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                </Frames>
+              </Loop>
+            </Loops>
+          </View>
+          <View>
+            <ID>49</ID>
+            <Name>vDogWag</Name>
+            <Loops>
+              <Loop>
+                <ID>0</ID>
+                <RunNextLoop>False</RunNextLoop>
+                <Frames>
+                  <ViewFrame>
+                    <ID>0</ID>
+                    <Image>253</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>1</ID>
+                    <Image>254</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>2</ID>
+                    <Image>253</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>3</ID>
+                    <Image>254</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>4</ID>
+                    <Image>253</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>5</ID>
+                    <Image>254</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>6</ID>
+                    <Image>253</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>7</ID>
+                    <Image>254</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>8</ID>
+                    <Image>253</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>9</ID>
+                    <Image>254</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>10</ID>
+                    <Image>253</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                  <ViewFrame>
+                    <ID>11</ID>
+                    <Image>254</Image>
+                    <Flipped>False</Flipped>
+                    <Delay>0</Delay>
+                    <Sound>0</Sound>
+                  </ViewFrame>
+                </Frames>
+              </Loop>
+            </Loops>
+          </View>
+          <View>
+            <ID>48</ID>
+            <Name>vTeleport2</Name>
+            <Loops>
+              <Loop>
+                <ID>0</ID>
+                <RunNextLoop>False</RunNextLoop>
+                <Frames>
+                  <ViewFrame>
+                    <ID>0</ID>
                     <Image>96</Image>
                     <Flipped>False</Flipped>
                     <Delay>0</Delay>
                     <Sound>0</Sound>
                   </ViewFrame>
                   <ViewFrame>
-                    <ID>14</ID>
+                    <ID>1</ID>
                     <Image>97</Image>
                     <Flipped>False</Flipped>
                     <Delay>0</Delay>
                     <Sound>0</Sound>
                   </ViewFrame>
                   <ViewFrame>
-                    <ID>15</ID>
+                    <ID>2</ID>
                     <Image>98</Image>
                     <Flipped>False</Flipped>
                     <Delay>0</Delay>
                     <Sound>0</Sound>
                   </ViewFrame>
                   <ViewFrame>
-                    <ID>16</ID>
+                    <ID>3</ID>
                     <Image>99</Image>
                     <Flipped>False</Flipped>
                     <Delay>0</Delay>
                     <Sound>0</Sound>
                   </ViewFrame>
                   <ViewFrame>
-                    <ID>17</ID>
+                    <ID>4</ID>
                     <Image>100</Image>
                     <Flipped>False</Flipped>
                     <Delay>0</Delay>
                     <Sound>0</Sound>
                   </ViewFrame>
                   <ViewFrame>
-                    <ID>18</ID>
+                    <ID>5</ID>
                     <Image>101</Image>
                     <Flipped>False</Flipped>
                     <Delay>0</Delay>
                     <Sound>0</Sound>
                   </ViewFrame>
                   <ViewFrame>
-                    <ID>19</ID>
+                    <ID>6</ID>
                     <Image>102</Image>
                     <Flipped>False</Flipped>
                     <Delay>0</Delay>
                     <Sound>0</Sound>
                   </ViewFrame>
                   <ViewFrame>
-                    <ID>20</ID>
+                    <ID>7</ID>
                     <Image>103</Image>
                     <Flipped>False</Flipped>
                     <Delay>0</Delay>
                     <Sound>0</Sound>
                   </ViewFrame>
                   <ViewFrame>
-                    <ID>21</ID>
+                    <ID>8</ID>
                     <Image>104</Image>
                     <Flipped>False</Flipped>
                     <Delay>0</Delay>
                     <Sound>0</Sound>
                   </ViewFrame>
                   <ViewFrame>
-                    <ID>22</ID>
+                    <ID>9</ID>
                     <Image>105</Image>
                     <Flipped>False</Flipped>
                     <Delay>0</Delay>
@@ -6861,11 +7428,6 @@ stop
       </ViewFolder>
     </Views>
     <DeletedViews>
-      <ViewID>40</ViewID>
-      <ViewID>47</ViewID>
-      <ViewID>49</ViewID>
-      <ViewID>48</ViewID>
-      <ViewID>50</ViewID>
       <ViewID>51</ViewID>
       <ViewID>53</ViewID>
       <ViewID>16</ViewID>
@@ -7101,6 +7663,30 @@ stop
                 <DefaultPriority>Inherit</DefaultPriority>
                 <DefaultRepeat>Inherit</DefaultRepeat>
                 <FileLastModifiedDate>2020-01-31 02:53:21Z</FileLastModifiedDate>
+              </AudioClip>
+              <AudioClip>
+                <ScriptName>aChelly_Looproom</ScriptName>
+                <SourceFileName>Chelly_Looproom.mp3</SourceFileName>
+                <Index>95</Index>
+                <Type>2</Type>
+                <BundlingType>InSeparateVOX</BundlingType>
+                <FileType>MP3</FileType>
+                <DefaultVolume>-1</DefaultVolume>
+                <DefaultPriority>Inherit</DefaultPriority>
+                <DefaultRepeat>Inherit</DefaultRepeat>
+                <FileLastModifiedDate>2020-02-01 00:29:53Z</FileLastModifiedDate>
+              </AudioClip>
+              <AudioClip>
+                <ScriptName>aChellyAmbience</ScriptName>
+                <SourceFileName>ChellyAmbience.ogg</SourceFileName>
+                <Index>97</Index>
+                <Type>2</Type>
+                <BundlingType>InSeparateVOX</BundlingType>
+                <FileType>OGG</FileType>
+                <DefaultVolume>-1</DefaultVolume>
+                <DefaultPriority>Inherit</DefaultPriority>
+                <DefaultRepeat>Inherit</DefaultRepeat>
+                <FileLastModifiedDate>2020-02-01 00:55:52Z</FileLastModifiedDate>
               </AudioClip>
             </AudioClips>
             <AudioClipFolder>
