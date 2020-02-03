@@ -3,5 +3,8 @@
 *.gif
 *.aseprite
 *.exe
+*.mp3
+*.mid
+*.
 _Debug\*.exe
 _Debug/*.exe
