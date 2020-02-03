@@ -2200,7 +2200,7 @@
             <IdleView>0</IdleView>
             <ThinkingView>0</ThinkingView>
             <BlinkingView>0</BlinkingView>
-            <StartingRoom>8</StartingRoom>
+            <StartingRoom>13</StartingRoom>
             <StartX>45</StartX>
             <StartY>150</StartY>
             <UniformMovementSpeed>True</UniformMovementSpeed>
@@ -5460,14 +5460,19 @@ stop
           <SpriteFolder Name="Ending">
             <SubFolders />
             <Sprites>
-              <Sprite Slot="256" Width="611" Height="260" ColorDepth="32" Resolution="LowRes" AlphaChannel="False">
+              <Sprite Slot="256" Width="320" Height="200" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
                 <Source>
-                  <FileName>gameend.png</FileName>
+                  <FileName>credits1.png</FileName>
                 </Source>
               </Sprite>
-              <Sprite Slot="257" Width="646" Height="625" ColorDepth="32" Resolution="LowRes" AlphaChannel="False">
+              <Sprite Slot="257" Width="320" Height="200" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
                 <Source>
-                  <FileName>credits.png</FileName>
+                  <FileName>credit2.png</FileName>
+                </Source>
+              </Sprite>
+              <Sprite Slot="258" Width="320" Height="200" ColorDepth="32" Resolution="LowRes" AlphaChannel="True">
+                <Source>
+                  <FileName>resizedend.png</FileName>
                 </Source>
               </Sprite>
             </Sprites>
